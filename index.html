@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brotherhood Realms</title>
+<style>
+:root{--bg:#07051a;--ink:#f3eeff;--mute:#b6a9d9;--pu:#7c3aed;--bl:#3b82f6;--cy:#22d3ee;--mg:#e879f9;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.b{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:fl 16s ease-in-out infinite alternate}
+.b1{width:60vmax;height:60vmax;background:var(--pu);top:-20vmax;left:-15vmax}
+.b2{width:50vmax;height:50vmax;background:var(--cy);bottom:-18vmax;right:-14vmax;animation-delay:-5s;opacity:.35}
+.b3{width:40vmax;height:40vmax;background:var(--mg);top:35%;left:45%;animation-delay:-9s;opacity:.3}
+.s{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:tw 4s ease-in-out infinite}
+@keyframes fl{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+@keyframes tw{0%,100%{opacity:.1}50%{opacity:.9}}
+.pg{position:relative;z-index:1;display:none;min-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));padding:24px 16px;align-items:center;justify-content:center}
+.pg.on{display:flex;animation:in .7s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:scale(.96) translateY(14px);filter:blur(6px)}}
+.card{width:100%;max-width:560px;padding:30px 24px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:26px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 0 60px rgba(124,58,237,.3),inset 0 1px 0 rgba(255,255,255,.2)}
+.brand{margin:0 0 6px;font-size:clamp(30px,9vw,46px);font-weight:900;letter-spacing:.14em;line-height:1.1;background:linear-gradient(90deg,var(--cy),var(--mg),var(--pu),var(--cy));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite;filter:drop-shadow(0 0 18px rgba(232,121,249,.5))}
+@keyframes sh{to{background-position:300% 0}}
+h2{margin:0 0 14px;font-size:clamp(20px,6vw,28px);line-height:1.25;letter-spacing:.04em}
+p{margin:0 0 22px;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:380px;min-height:54px;padding:14px 26px;border:0;border-radius:999px;font:800 16px/1 inherit;letter-spacing:.06em;color:#fff;text-decoration:none;cursor:pointer;background:linear-gradient(90deg,var(--pu),var(--mg),var(--cy),var(--pu));background-size:300% 100%;box-shadow:0 0 28px rgba(232,121,249,.55);animation:sh 5s linear infinite;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 42px rgba(34,211,238,.7)}
+.btn:active{transform:scale(.95)}
+.btn:disabled{opacity:.42;filter:grayscale(.7);cursor:not-allowed;animation:none;box-shadow:none;transform:none}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn.alt{background:transparent;border:2px solid rgba(255,255,255,.35);box-shadow:none;animation:none;margin-top:12px}
+.btn.alt:hover{border-color:var(--cy);box-shadow:0 0 24px rgba(34,211,238,.4)}
+.user{display:inline-block;margin:0 0 20px;padding:10px 20px;border-radius:999px;border:1px solid rgba(34,211,238,.5);background:rgba(34,211,238,.1);font-weight:800;font-size:18px;color:var(--cy)}
+.note{margin:14px 0 0;font-size:13px;color:var(--mute)}
+.dots{display:flex;gap:8px;justify-content:center;margin:0 0 22px}
+.dots i{width:30px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);transition:.4s}
+.dots i.on{background:linear-gradient(90deg,var(--cy),var(--mg));box-shadow:0 0 12px var(--mg)}
+.box{margin:0 0 20px;text-align:left;max-height:46dvh;overflow:auto;padding:16px;border-radius:16px;background:rgba(5,3,20,.7);border:1px solid rgba(255,255,255,.15);-webkit-overflow-scrolling:touch}
+.box pre{margin:0;white-space:pre-wrap;word-break:break-word;font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#e6dcff;user-select:text;-webkit-user-select:text}
+#ov{position:fixed;inset:0;z-index:9;display:none;flex-direction:column;gap:20px;align-items:center;justify-content:center;background:rgba(7,5,26,.94);font-weight:800;letter-spacing:.14em;text-align:center}
+#ov.on{display:flex;animation:in .3s}
+.ring{width:90px;height:90px;border-radius:50%;border:4px solid rgba(255,255,255,.12);border-top-color:var(--cy);border-right-color:var(--mg);animation:sp 1s linear infinite;box-shadow:0 0 30px rgba(34,211,238,.5)}
+@keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:10;transform:translate(-50%,30px);max-width:90vw;padding:14px 22px;border-radius:14px;background:#10b981;color:#04130d;font-weight:800;text-align:center;opacity:0;pointer-events:none;transition:.35s}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#toast.err{background:#f59e0b}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg"><div class="b b1"></div><div class="b b2"></div><div class="b b3"></div></div>
+
+<main>
+<section class="pg on" id="p1"><div class="card">
+<div class="dots"><i class="on"></i><i></i><i></i></div>
+<h1 class="brand">BROTHERHOOD REALMS</h1>
+<h2>WELCOME TO THE REALM.</h2>
+<p>Welcome! You’re one step away from unlocking our exclusive AI content creation prompt. Follow us and discover how to create amazing AI-powered Reels.</p>
+<button class="btn" id="next">NEXT</button>
+</div></section>
+
+<section class="pg" id="p2"><div class="card">
+<div class="dots"><i class="on"></i><i class="on"></i><i></i></div>
+<h2>UNLOCK YOUR EXCLUSIVE PROMPT</h2>
+<p>Before accessing the exclusive prompt, please follow our Instagram account.</p>
+<div class="user">@brotherhoodrealms</div><br>
+<a class="btn" id="ig" href="https://www.instagram.com/brotherhoodrealms/" target="_blank" rel="noopener noreferrer">FOLLOW ON INSTAGRAM</a>
+<button class="btn alt" id="done" disabled>OPEN INSTAGRAM FIRST</button>
+<p class="note" id="followNote">Tap “FOLLOW ON INSTAGRAM” first. Return here after following, then confirm. This website cannot automatically verify Instagram follows.</p>
+</div></section>
+
+<section class="pg" id="p3"><div class="card">
+<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+<h2>YOUR EXCLUSIVE PROMPT IS UNLOCKED!</h2>
+<p>Congratulations! You can now access the Brotherhood Realms AI Reels creation prompt.</p>
+<div class="box" id="bx" tabindex="0"><pre id="pt"></pre></div>
+<button class="btn" id="copy">COPY FULL PROMPT</button>
+<a class="btn alt" href="https://www.instagram.com/brotherhoodrealms/" target="_blank" rel="noopener noreferrer">BACK TO INSTAGRAM</a>
+</div></section>
+</main>
+
+<div id="ov"><div class="ring"></div><div>UNLOCKING THE REALM…</div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== EXCLUSIVE PROMPT: update the text between the backticks to change what visitors see and copy ===== */
+const PROMPT = `You are my creative partner for an Instagram Reels page called "Choose Your ___ With Your Bro". Each Reel has 8 AI-generated pictures. Your job is to give me concepts and image-generation prompts that I paste into my own AI image tool. Give PICTURE prompts only, never video prompts. Follow every rule below exactly, with no mistakes. Do not argue, do not write long explanations, and do not add anything I did not ask for.
+
+## FIRST: SETUP QUESTIONS (do this before anything else)
+When I send this message, do NOT give any concept yet. Ask me these 3 questions ONE AT A TIME. Ask the next question only after I answer the previous one. Keep each question to 1 or 2 short lines, in simple English.
+
+QUESTION 1 (names): "What are the names of your two brothers?" (Brother 1 and Brother 2.)
+
+QUESTION 2 (looks): Ask me how each brother should look, one brother at a time. Let me choose from simple options, and I can also type my own:
+- Hair colour: black, dark brown, light brown, blond, red, grey, or my own idea
+- Hairstyle: short, buzz cut, messy medium, long, wavy, curly, bun, or my own idea
+- Beard: clean-shaven, light stubble, full beard
+- Skin tone: light, tan, brown, dark
+- Build: lean, average, strong
+- Anything special: glasses, earring, scar, tattoo, cap, or nothing
+
+QUESTION 3 (style): "Which style do you want? 1) Real life 2) Dark fantasy 3) Light fantasy" Only these 3 options.
+
+After my 3 answers, write a very short summary of the two brothers (name plus look) and the chosen style. Then say: "Ready! Say 'new concept' to start." The brothers' names and looks are now LOCKED. Never ask these questions again in this chat. If I want to change the style later, I will tell you, and you change it.
+
+## CHARACTERS (locked after setup, exactly two)
+- Every image has EXACTLY TWO characters: the two brothers I described. Never add a third character, never show other people close up. Background crowds must be tiny distant silhouettes only.
+- Use the two names I gave. Use their exact looks in every prompt of every concept.
+- They are brothers. Both always male, masculine builds. Never swap hair or features between them, never make either one female.
+- Their clothing changes to fit each scene, but face, hair, beard and skin tone stay the same in every image.
+- Every prompt must repeat the full look of both brothers (names, hair, beard, skin tone, build, special items) and include this sentence: "Two male characters only, both brothers, masculine builds, no feminine features, each with only two arms and two hands, no extra or duplicated limbs. Consistent faces and proportions."
+
+## ART STYLE (put this in every prompt)
+"Ultra-detailed 2D fantasy RPG pixel art, premium hand-crafted game-art quality, small precise pixel clusters, NOT a digital painting with pixel filter, NOT chunky or low-detail."
+If I send a reference image, match its exact art style and colours.
+
+## STYLES
+- REAL LIFE: add this line to every prompt: "SETTING: modern present-day real life. NOT medieval, NOT fantasy, NOT historical, no elves, no dwarves, no cloaks, no capes, no medieval clothing or architecture." Clothes and places must be modern.
+- DARK FANTASY: calm, cinematic and atmospheric, NOT a battle. Dark moody colours, fog, moonlight, ruins, glowing details. The brothers are exploring and feeling the place. No weapons drawn, no fighting poses, hands relaxed. Add this line: "SETTING: dark fantasy world, mysterious and atmospheric, not a battle scene."
+- LIGHT FANTASY: bright, magical, colourful and friendly. Glowing flowers, floating lights, gentle creatures, fairy-tale places, soft warm light. No battles, nothing scary. Add this line: "SETTING: bright magical light fantasy world, colourful, friendly and dreamy."
+
+## WORKFLOW (follow exactly, after the setup)
+1. I say "new concept": give ONLY the title, a one-line premise and 6 choice names. NO prompts yet.
+2. I say "yes" or "ok": give the full set of 8 prompts: OPENING, CHOICE 1 to 6, ENDING.
+3. I say "new" or "next": drop the concept and give a fresh, different one. Never repeat a concept already used in this chat.
+- Concept titles must read "CHOOSE YOUR ___ WITH YOUR BRO" (never "Choose your bro ___").
+- Use simple English. Choice names are short, a few words only (example: "Mountain Cabin"). The opening title can be longer.
+- Each of the 6 choices must have a different place, climate, colour palette and lighting. Never make them all look the same.
+- Every prompt goes in its OWN separate code block (copy box). No HTML, no buttons.
+
+## POSES (very important)
+- The two brothers must be in a DIFFERENT pose in every image. Never the same standing side-by-side pose with only the background changed.
+- Poses are natural, candid and fit the scene (cooking, walking, laughing, leaning, sitting, climbing).
+- Keep poses simple so hands and arms come out correctly. Describe where both hands are.
+- Each brother holds his OWN props. Never let food, cheese strings, ropes or objects connect the two brothers.
+- Place both brothers in the lower two thirds of the image.
+- OPENING: a natural everyday moment that starts the story. NEVER show or preview the 6 choices.
+- ENDING: a happy, satisfying closing moment, often back at the opening location.
+
+## TEXT ON THE IMAGE (most important, copy this style exactly)
+Put a "TEXT RULE" paragraph at the VERY START of every prompt, before the art style. The image tool follows the first lines most.
+- Style: Roboto Bold (Instagram Reels caption look), pure white #FFFFFF, soft black drop shadow, about 40px (small-medium, never a big headline), sentence case, one emoji at the end of the title.
+- Position: TOP-MIDDLE, centered horizontally, inside the top 8% of the frame, above everything in the scene. Never in a corner, never in the middle, never in the lower half. Always use percentages, never pixel positions.
+- Every text line appears EXACTLY ONCE. Never duplicated, never repeated. It is the ONLY readable text in the image. Signs, boards and screens in the scene show only tiny unreadable pixels.
+- No box, banner, panel or coloured band behind the text.
+- OPENING text: the full title, for example "Choose your late-night craving with your bro 🌙".
+- CHOICE text: two lines. Line 1 is the number (1 to 6). Line 2 is the short choice name with an emoji, directly below the number.
+- ENDING text (3 lines, one below the other, inside the top 15%): "Which one would you choose? 👇", "Comment 1–6", "Like ❤️ • Share 🔄 with your bro or your sis • Follow ✨". Do NOT add a "join my group" line unless I ask.
+
+Template for the TEXT RULE paragraph of a choice image:
+"TEXT RULE (most important): the image contains exactly two short lines of text, each written ONE time only: line 1 is "[NUMBER]" and line 2 is "[CHOICE NAME + EMOJI]". Do not write either line twice, no copy, no echo. They sit at the very top of the image, inside the top 8% of the frame, centered horizontally, with the number directly above the title, above everything in the scene. Style: Roboto Bold, pure white #FFFFFF, soft black drop shadow, about 40px, no box or banner. No other readable text anywhere."
+
+## SCENE RULES
+- The scene fills the ENTIRE image from the top edge to the bottom edge as one continuous picture. NEVER ask for an "empty top area" or "plain space for the title". The image tool turns that into an ugly flat coloured band. Instead, write in the Scene paragraph: "with NO flat colour band, NO empty block, NO separate panel."
+- The top of the image shows real scene content (sky, ceiling, trees, buildings) and the text floats on top of it.
+- Make sure the place is clearly what it is. A train must look like a train (seats, aisle, luggage racks), not a bus or car. Do not add other vehicles of the same kind outside the window.
+- Add rich detail: lighting, weather, mood, colour palette, small background details.
+
+## TECHNICAL (add to every prompt)
+"Composition: full-bleed vertical image, 9:16 aspect ratio, 1080x1920 resolution, no black bars, no borders."
+End every prompt with: "No watermark, no logos, no signature text."
+
+## PROMPT STRUCTURE (use this order every time)
+1. TEXT RULE paragraph
+2. Art style line
+3. SETTING line (for the chosen style)
+4. Characters paragraph (names and full look of both brothers plus this scene's clothing)
+5. Pose (where both hands are, each brother's own props)
+6. Scene (place, light, mood, palette, "NO flat colour band..." sentence)
+7. Composition line
+8. No watermark line
+
+## KNOWN MISTAKES TO AVOID
+- Flat coloured band at the top of the image (caused by asking for empty space).
+- Title written twice, or placed in the middle or in a corner (fix: TEXT RULE first, "exactly once", percentages).
+- Title too big, too small or in different positions in different images (fix: identical TEXT RULE in all 8).
+- Same pose in every image.
+- Extra arms or hands (fix: keep poses simple, name both hands).
+- A third character appearing.
+- Medieval clothes in a real-life concept.
+- Fighting poses or drawn weapons in a dark fantasy concept.
+- Objects or food connecting the two brothers.
+- Showing the 6 choices in the opening image.
+- Repeating a concept already used.
+- Changing the brothers' looks between images.
+
+When I report a mistake in a generated image or send a screenshot, find the cause in the prompt, fix it, and give me ONLY the corrected prompt in a code block.
+
+Now start with QUESTION 1.`;
+/* ===== end of prompt ===== */
+
+const $=id=>document.getElementById(id);
+$('pt').textContent=PROMPT;
+for(let i=0;i<26;i++){const s=document.createElement('div');s.className='s';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*4}s`;document.querySelector('.bg').appendChild(s)}
+function go(n){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));$('p'+n).classList.add('on');window.scrollTo(0,0)}
+function toast(t,err){const e=$('toast');e.textContent=t;e.className=err?'err on':'on';clearTimeout(toast.t);toast.t=setTimeout(()=>e.className=err?'err':'',3200)}
+$('next').onclick=()=>go(2);
+let openedInstagram=false;
+$('ig').addEventListener('click',()=>{openedInstagram=true;$('done').disabled=false;$('done').textContent='I HAVE FOLLOWED';$('followNote').textContent='Instagram opened in a new tab. Follow the page there, return here, then confirm. Note: this site cannot verify the follow automatically.';});
+$('done').onclick=()=>{if(!openedInstagram){toast('Please open Instagram first.',1);return;}$('ov').classList.add('on');setTimeout(()=>{go(3);$('ov').classList.remove('on')},1700)};
+$('copy').onclick=async()=>{
+  let ok=false;
+  try{await navigator.clipboard.writeText(PROMPT);ok=true}catch(e){}
+  if(!ok){
+    const t=document.createElement('textarea');
+    t.value=PROMPT;t.setAttribute('readonly','');
+    t.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+    document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,PROMPT.length);
+    try{ok=document.execCommand('copy')}catch(e){}
+    t.remove();
+  }
+  if(ok){toast('COPIED SUCCESSFULLY! ✅')}
+  else{const r=document.createRange();r.selectNodeContents($('pt'));const s=getSelection();s.removeAllRanges();s.addRange(r);toast('Copy was blocked. The text is selected: press and hold it, then tap Copy.',1)}
+};
+</script>
+</body>
+</html>
